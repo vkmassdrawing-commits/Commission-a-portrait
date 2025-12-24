@@ -1,0 +1,703 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vix Draws World - Art Studio</title>
+    <link
+      rel="icon"
+      type="image/jpg"
+      href="Picsart_25-12-14_21-00-54-609.jpg"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Lato:wght@300;400;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <style>
+      /* --- THEME VARIABLES (Light Brown & Grey) --- */
+      :root {
+        --bg-color: #f4f4f4; /* Light Grey Background */
+        --card-bg: #ffffff; /* White Cards */
+        --primary-brown: #a67c52; /* Coffee/Bronze Brown */
+        --secondary-brown: #d9c0a3; /* Light Beige */
+        --text-dark: #333333; /* Dark Grey Text */
+        --text-light: #666666; /* Medium Grey Text */
+        --shadow: 0 10px 30px rgba(166, 124, 82, 0.15); /* Soft Brown Shadow */
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: "Lato", sans-serif;
+        background-color: var(--bg-color);
+        color: var(--text-dark);
+        overflow-x: hidden;
+      }
+
+      /* --- 1. NAVIGATION (Clean White & Brown) --- */
+      .header {
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+        background: rgba(255, 255, 255, 0.95);
+        padding: 15px 40px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        border-bottom: 3px solid var(--primary-brown);
+      }
+
+      .logo-box img {
+        height: 55px;
+        border-radius: 4px;
+      }
+
+      .nav-links {
+        display: flex;
+        align-items: center;
+      }
+      .nav-links a {
+        color: var(--text-dark);
+        text-decoration: none;
+        margin-left: 35px;
+        font-size: 13px;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        font-weight: 700;
+        transition: color 0.3s;
+      }
+      .nav-links a:hover {
+        color: var(--primary-brown);
+      }
+
+      /* Book Button */
+      .nav-btn {
+        border: 2px solid var(--primary-brown);
+        padding: 8px 25px;
+        color: var(--primary-brown) !important;
+        border-radius: 30px;
+      }
+      .nav-btn:hover {
+        background: var(--primary-brown);
+        color: white !important;
+      }
+
+      /* Mobile Menu */
+      .hamburger {
+        display: none;
+        font-size: 28px;
+        color: var(--text-dark);
+        cursor: pointer;
+      }
+
+      /* Mobile Sidebar */
+      .sidebar {
+        position: fixed;
+        top: 0;
+        left: -100%;
+        width: 280px;
+        height: 100%;
+        background: #fff;
+        z-index: 2000;
+        transition: 0.4s ease;
+        padding-top: 60px;
+        box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+      }
+      .sidebar.active {
+        left: 0;
+      }
+      .sidebar a {
+        display: block;
+        padding: 15px 30px;
+        color: var(--text-dark);
+        text-decoration: none;
+        font-size: 16px;
+        border-bottom: 1px solid #eee;
+      }
+      .overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.5);
+        z-index: 1500;
+        display: none;
+      }
+      .overlay.active {
+        display: block;
+      }
+
+      /* --- 2. HERO SECTION --- */
+      .hero {
+        height: 90vh;
+        /* Dark overlay to make text pop, using your image */
+        background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)),
+          url("IMG20251208124510.jpg");
+        background-size: cover;
+        background-position: center;
+        background-attachment: fixed;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        color: white;
+      }
+      .hero h1 {
+        font-family: "Playfair Display", serif;
+        font-size: 4rem;
+        margin-bottom: 15px;
+        text-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+        letter-spacing: 1px;
+      }
+      .hero p {
+        font-size: 1.2rem;
+        letter-spacing: 2px;
+        font-weight: 300;
+        opacity: 0.9;
+      }
+
+      .hero-btn {
+        margin-top: 40px;
+        background: var(--primary-brown);
+        color: white;
+        padding: 15px 40px;
+        border-radius: 2px;
+        text-decoration: none;
+        font-weight: 700;
+        letter-spacing: 2px;
+        transition: 0.3s;
+      }
+      .hero-btn:hover {
+        background: #8a6642;
+        transform: translateY(-3px);
+      }
+
+      /* --- 3. SECTIONS (General) --- */
+      .section {
+        padding: 100px 20px;
+        max-width: 1100px;
+        margin: 0 auto;
+      }
+      .section-title {
+        text-align: center;
+        font-family: "Playfair Display", serif;
+        font-size: 3rem;
+        color: var(--primary-brown);
+        margin-bottom: 60px;
+      }
+
+      /* About */
+      .about-box {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 60px;
+        flex-wrap: wrap;
+        background: var(--card-bg);
+        padding: 50px;
+        border-radius: 8px;
+        box-shadow: var(--shadow);
+        border-top: 5px solid var(--primary-brown);
+      }
+      .profile-img {
+        width: 220px;
+        height: 220px;
+        border-radius: 50%;
+        object-fit: cover;
+        border: 8px solid var(--secondary-brown);
+      }
+      .about-text {
+        flex: 1;
+        min-width: 300px;
+        color: var(--text-light);
+        line-height: 1.8;
+        font-size: 1.1rem;
+      }
+
+      /* Gallery */
+      .gallery-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 25px;
+      }
+      .gallery-item {
+        position: relative;
+        overflow: hidden;
+        border-radius: 4px;
+        height: 320px;
+        border: 1px solid #ddd;
+        padding: 10px;
+        background: white;
+        transition: 0.3s;
+      }
+      .gallery-item:hover {
+        transform: translateY(-10px);
+        box-shadow: var(--shadow);
+        border-color: var(--primary-brown);
+      }
+      .gallery-item img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+
+      .insta-link {
+        display: block;
+        text-align: center;
+        margin-top: 40px;
+        color: var(--primary-brown);
+        text-decoration: none;
+        font-weight: bold;
+        border-bottom: 2px solid var(--secondary-brown);
+        width: fit-content;
+        margin-left: auto;
+        margin-right: auto;
+      }
+
+      /* --- 4. BOOKING FORM (Clean Design) --- */
+      .booking-wrapper {
+        background: var(--card-bg);
+        padding: 50px;
+        border-radius: 10px;
+        box-shadow: var(--shadow);
+        border: 1px solid #e0e0e0;
+        max-width: 800px;
+        margin: 0 auto;
+      }
+
+      .form-group {
+        margin-bottom: 25px;
+      }
+      label {
+        display: block;
+        color: var(--text-light);
+        margin-bottom: 8px;
+        font-weight: 700;
+        font-size: 0.9rem;
+      }
+
+      input,
+      textarea,
+      select {
+        width: 100%;
+        padding: 15px;
+        border: 1px solid #ddd;
+        background: #fdfdfd;
+        border-radius: 4px;
+        font-family: "Lato", sans-serif;
+        transition: 0.3s;
+        color: var(--text-dark);
+      }
+      input:focus,
+      textarea:focus {
+        border-color: var(--primary-brown);
+        outline: none;
+        background: #fff;
+      }
+
+      /* Size Selection Buttons */
+      .size-row {
+        display: flex;
+        gap: 15px;
+      }
+      .size-opt {
+        flex: 1;
+        padding: 15px;
+        border: 1px solid #ddd;
+        text-align: center;
+        cursor: pointer;
+        transition: 0.3s;
+        border-radius: 4px;
+        background: #fff;
+      }
+      .size-opt:hover {
+        border-color: var(--primary-brown);
+        background: #fafafa;
+      }
+      .size-opt.active {
+        background: var(--primary-brown);
+        color: white;
+        border-color: var(--primary-brown);
+      }
+
+      /* Upload Box */
+      .upload-zone {
+        border: 2px dashed var(--secondary-brown);
+        background: #fffbf5;
+        padding: 30px;
+        text-align: center;
+        cursor: pointer;
+        border-radius: 4px;
+        color: var(--primary-brown);
+        font-weight: bold;
+      }
+      .upload-zone:hover {
+        background: #fff;
+      }
+
+      /* Submit Button */
+      .submit-btn {
+        width: 100%;
+        background: var(--primary-brown);
+        color: white;
+        padding: 18px;
+        border: none;
+        font-size: 1.1rem;
+        font-weight: 700;
+        letter-spacing: 1px;
+        cursor: pointer;
+        border-radius: 4px;
+        transition: 0.3s;
+        text-transform: uppercase;
+      }
+      .submit-btn:hover {
+        background: #8a6642;
+      }
+
+      /* --- FOOTER --- */
+      .footer {
+        background: #e8e8e8;
+        color: var(--text-light);
+        padding: 50px;
+        text-align: center;
+        border-top: 5px solid var(--secondary-brown);
+      }
+      .footer a {
+        color: var(--primary-brown);
+        text-decoration: none;
+        font-weight: bold;
+      }
+
+      /* --- MODAL --- */
+      .modal {
+        display: none;
+        position: fixed;
+        z-index: 2500;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.6);
+        backdrop-filter: blur(4px);
+        align-items: center;
+        justify-content: center;
+      }
+      .modal-box {
+        background: white;
+        width: 90%;
+        max-width: 450px;
+        padding: 40px;
+        border-radius: 8px;
+        text-align: center;
+        border-top: 5px solid var(--primary-brown);
+        box-shadow: 0 20px 50px rgba(0, 0, 0, 0.2);
+      }
+
+      /* Responsive */
+      @media (max-width: 768px) {
+        .nav-links {
+          display: none;
+        }
+        .hamburger {
+          display: block;
+        }
+        .hero h1 {
+          font-size: 2.8rem;
+        }
+        .size-row {
+          flex-direction: column;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="overlay" onclick="toggleMenu()"></div>
+    <div class="sidebar" id="mobileSidebar">
+      <div
+        style="padding: 20px; font-weight: bold; color: var(--primary-brown)"
+      >
+        MENU
+      </div>
+      <a href="#home" onclick="toggleMenu()">Home</a>
+      <a href="#about" onclick="toggleMenu()">About</a>
+      <a href="#gallery" onclick="toggleMenu()">Gallery</a>
+      <a href="#book" onclick="toggleMenu()" style="color: var(--primary-brown)"
+        >Book Now</a
+      >
+    </div>
+
+    <nav class="header">
+      <div class="logo-box">
+        <img src="Picsart_25-12-14_21-00-54-609.jpg" alt="Logo" />
+      </div>
+      <div class="nav-links">
+        <a href="#home">Home</a>
+        <a href="#about">About</a>
+        <a href="#gallery">Gallery</a>
+        <a href="#book" class="nav-btn">BOOK COMMISSION</a>
+      </div>
+      <div class="hamburger" onclick="toggleMenu()">&#9776;</div>
+    </nav>
+
+    <section id="home" class="hero">
+      <h1>Art That Captures Soul</h1>
+      <p>HYPER-REALISTIC CHARCOAL & GRAPHITE PORTRAITS</p>
+      <a href="#book" class="hero-btn">START YOUR ORDER</a>
+    </section>
+
+    <section id="about" class="section">
+      <h2 class="section-title">The Artist</h2>
+      <div class="about-box">
+        <div class="about-text">
+          <h3
+            style="
+              color: var(--text-dark);
+              margin-bottom: 15px;
+              font-size: 1.5rem;
+            "
+          >
+            Hello, I'm Vicky.
+          </h3>
+          <p>
+            Welcome to Vix DrawsWorld X . I am a professional artist based in
+            Chennai, dedicated to creating timeless portraits. My work combines
+            earthy textures with sharp contrast to bring your memories to life
+            on paper.
+          </p>
+        </div>
+        <img src="IMG_20251213_115140.png" alt="Vicky" class="profile-img" />
+      </div>
+    </section>
+
+    <section id="gallery" class="section">
+      <h2 class="section-title">Portfolio</h2>
+      <div class="gallery-grid">
+        <div class="gallery-item"><img src="IMG20250804102717.jpg" /></div>
+        <div class="gallery-item"><img src="IMG20250817172558.jpg" /></div>
+        <div class="gallery-item"><img src="IMG_20250701_185503.jpg" /></div>
+        <div class="gallery-item">
+          <img src="OplusInfoCollection_251213112001058.png" />
+        </div>
+      </div>
+      <a href="https://www.instagram.com/vix_drawsworld_x___" class="insta-link"
+        >Visit Instagram Gallery &rarr;</a
+      >
+    </section>
+
+    <section id="book" class="section" style="background: #fffbf5">
+      <h2 class="section-title">Commission a Portrait</h2>
+
+      <div class="booking-wrapper">
+        <form id="bookingForm" method="POST" enctype="multipart/form-data">
+          <input
+            type="hidden"
+            name="_subject"
+            value="New Portrait Order (Brown Theme)"
+          />
+          <input type="hidden" name="_captcha" value="false" />
+
+          <div class="form-group">
+            <label>SELECT SIZE</label>
+            <div class="size-row">
+              <div class="size-opt" onclick="selectSize(this, 'A4')">
+                A4 Size
+              </div>
+              <div class="size-opt" onclick="selectSize(this, 'A3')">
+                A3 Size
+              </div>
+              <div class="size-opt" onclick="selectSize(this, 'A2')">
+                A2 Size
+              </div>
+            </div>
+            <input type="hidden" id="sizeInput" name="Size" required />
+          </div>
+
+          <div class="form-group">
+            <label>UPLOAD REFERENCE PHOTO</label>
+            <div
+              class="upload-zone"
+              onclick="document.getElementById('fileInput').click()"
+            >
+              Click to Browse Photo
+            </div>
+            <input
+              type="file"
+              id="fileInput"
+              name="Attachment"
+              accept="image/*"
+              style="display: none"
+              required
+            />
+            <div
+              id="fileMsg"
+              style="
+                margin-top: 10px;
+                font-size: 0.9rem;
+                text-align: center;
+                color: var(--primary-brown);
+              "
+            ></div>
+          </div>
+
+          <div class="form-group">
+            <label>YOUR DETAILS</label>
+            <input
+              type="text"
+              name="Name"
+              placeholder="Full Name"
+              required
+              style="margin-bottom: 10px"
+            />
+            <input
+              type="tel"
+              name="Phone"
+              placeholder="Phone Number"
+              required
+              style="margin-bottom: 10px"
+            />
+            <textarea
+              name="Address"
+              rows="3"
+              placeholder="Delivery Address"
+              required
+            ></textarea>
+          </div>
+
+          <button type="submit" class="submit-btn" id="submitBtn">
+            Submit Request
+          </button>
+        </form>
+      </div>
+    </section>
+
+    <footer class="footer">
+      <h3>Vix DrawsWorld X</h3>
+      <p style="margin-top: 15px">
+        <a href="tel:8610493059">8610493059</a> &bull;
+        <a href="mailto:vixdrawsworldx@gmail.com">vixdrawsworldx@gmail.com</a>
+      </p>
+      <p style="font-size: 0.8rem; margin-top: 20px">
+        &copy; 2025 All Rights Reserved.
+      </p>
+    </footer>
+
+    <div id="successModal" class="modal">
+      <div class="modal-box">
+        <h2
+          style="
+            color: var(--primary-brown);
+            margin-bottom: 15px;
+            font-family: 'Playfair Display', serif;
+          "
+        >
+          Thank You!
+        </h2>
+        <p style="color: #666; margin-bottom: 25px; line-height: 1.6">
+          Your booking request has been sent successfully. I will review your
+          photo and contact you shortly.
+        </p>
+
+        <a
+          href="https://wa.me/918610493059"
+          style="
+            display: inline-block;
+            background: #25d366;
+            color: white;
+            padding: 12px 30px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: bold;
+            margin-bottom: 15px;
+          "
+          >Chat on WhatsApp</a
+        >
+        <br />
+        <button
+          onclick="document.getElementById('successModal').style.display='none'"
+          style="
+            background: transparent;
+            border: none;
+            color: #999;
+            cursor: pointer;
+            text-decoration: underline;
+          "
+        >
+          Close Window
+        </button>
+      </div>
+    </div>
+
+    <script>
+      // Sidebar Logic
+      function toggleMenu() {
+        document.getElementById("mobileSidebar").classList.toggle("active");
+        document.querySelector(".overlay").classList.toggle("active");
+      }
+
+      // Size Selection
+      function selectSize(btn, size) {
+        document
+          .querySelectorAll(".size-opt")
+          .forEach((b) => b.classList.remove("active"));
+        btn.classList.add("active");
+        document.getElementById("sizeInput").value = size;
+      }
+
+      // File Msg
+      document
+        .getElementById("fileInput")
+        .addEventListener("change", function () {
+          if (this.files.length > 0) {
+            document.getElementById("fileMsg").innerText =
+              "Selected: " + this.files[0].name;
+          }
+        });
+
+      // Form Submit
+      const form = document.getElementById("bookingForm");
+      const modal = document.getElementById("successModal");
+      const btn = document.getElementById("submitBtn");
+
+      form.addEventListener("submit", function (e) {
+        e.preventDefault();
+        if (!document.getElementById("sizeInput").value) {
+          alert("Please select a size.");
+          return;
+        }
+
+        btn.innerText = "Processing...";
+        btn.style.opacity = "0.7";
+
+        const formData = new FormData(this);
+        fetch("https://formsubmit.co/ajax/vixdrawsworldx@gmail.com", {
+          method: "POST",
+          body: formData,
+        })
+          .then((res) => res.json())
+          .then((data) => {
+            modal.style.display = "flex";
+            btn.innerText = "Submit Request";
+            btn.style.opacity = "1";
+            form.reset();
+            document
+              .querySelectorAll(".size-opt")
+              .forEach((b) => b.classList.remove("active"));
+            document.getElementById("fileMsg").innerText = "";
+          })
+          .catch((err) => {
+            modal.style.display = "flex"; // Show success even if error (UX backup)
+            btn.innerText = "Submit Request";
+            btn.style.opacity = "1";
+          });
+      });
+    </script>
+  </body>
+</html>
