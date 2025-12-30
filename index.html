@@ -7,23 +7,26 @@
     <link
       rel="icon"
       type="image/jpg"
-      href="Picsart_25-12-14_21-00-54-609.jpg"
+      href="Picsart_25-12-30_21-09-30-937.png"
     />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
       href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Lato:wght@300;400;700&display=swap"
       rel="stylesheet"
     />
 
     <style>
-      /* --- THEME VARIABLES (Light Brown & Grey) --- */
+      /* --- THEME VARIABLES --- */
       :root {
-        --bg-color: #f4f4f4; /* Light Grey Background */
-        --card-bg: #ffffff; /* White Cards */
-        --primary-brown: #a67c52; /* Coffee/Bronze Brown */
-        --secondary-brown: #d9c0a3; /* Light Beige */
-        --text-dark: #333333; /* Dark Grey Text */
-        --text-light: #666666; /* Medium Grey Text */
-        --shadow: 0 10px 30px rgba(166, 124, 82, 0.15); /* Soft Brown Shadow */
+        --bg-color: #f4f4f4;
+        --card-bg: #ffffff;
+        --primary-brown: #a67c52;
+        --secondary-brown: #d9c0a3;
+        --text-dark: #333333;
+        --text-light: #666666;
+        --shadow: 0 10px 30px rgba(166, 124, 82, 0.15);
       }
 
       * {
@@ -36,10 +39,54 @@
         font-family: "Lato", sans-serif;
         background-color: var(--bg-color);
         color: var(--text-dark);
-        overflow-x: hidden;
+        overflow-x: hidden; /* Prevent horizontal scroll */
       }
 
-      /* --- 1. NAVIGATION (Clean White & Brown) --- */
+      /* =========================================
+           1. PRELOADER (LOGO MOTION)
+           ========================================= */
+      #preloader {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: #fff;
+        z-index: 9999;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        transition: opacity 0.5s ease-out;
+      }
+
+      .loader-logo {
+        width: 120px; /* Adjust logo size */
+        animation: breathe 2s infinite ease-in-out;
+      }
+
+      @keyframes breathe {
+        0% {
+          transform: scale(1);
+          opacity: 0.5;
+        }
+        50% {
+          transform: scale(1.1);
+          opacity: 1;
+        }
+        100% {
+          transform: scale(1);
+          opacity: 0.5;
+        }
+      }
+
+      /* Hide Scrollbar while loading */
+      body.loading {
+        overflow: hidden;
+      }
+
+      /* =========================================
+           2. NAVIGATION
+           ========================================= */
       .header {
         position: sticky;
         top: 0;
@@ -76,7 +123,6 @@
         color: var(--primary-brown);
       }
 
-      /* Book Button */
       .nav-btn {
         border: 2px solid var(--primary-brown);
         padding: 8px 25px;
@@ -88,7 +134,6 @@
         color: white !important;
       }
 
-      /* Mobile Menu */
       .hamburger {
         display: none;
         font-size: 28px;
@@ -96,7 +141,6 @@
         cursor: pointer;
       }
 
-      /* Mobile Sidebar */
       .sidebar {
         position: fixed;
         top: 0;
@@ -134,10 +178,11 @@
         display: block;
       }
 
-      /* --- 2. HERO SECTION --- */
+      /* =========================================
+           3. HERO SECTION
+           ========================================= */
       .hero {
         height: 90vh;
-        /* Dark overlay to make text pop, using your image */
         background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)),
           url("IMG20251208124510.jpg");
         background-size: cover;
@@ -180,7 +225,9 @@
         transform: translateY(-3px);
       }
 
-      /* --- 3. SECTIONS (General) --- */
+      /* =========================================
+           4. SECTIONS
+           ========================================= */
       .section {
         padding: 100px 20px;
         max-width: 1100px;
@@ -262,7 +309,7 @@
         margin-right: auto;
       }
 
-      /* --- 4. BOOKING FORM (Clean Design) --- */
+      /* --- 5. BOOKING FORM --- */
       .booking-wrapper {
         background: var(--card-bg);
         padding: 50px;
@@ -303,7 +350,6 @@
         background: #fff;
       }
 
-      /* Size Selection Buttons */
       .size-row {
         display: flex;
         gap: 15px;
@@ -328,7 +374,6 @@
         border-color: var(--primary-brown);
       }
 
-      /* Upload Box */
       .upload-zone {
         border: 2px dashed var(--secondary-brown);
         background: #fffbf5;
@@ -343,7 +388,6 @@
         background: #fff;
       }
 
-      /* Submit Button */
       .submit-btn {
         width: 100%;
         background: var(--primary-brown);
@@ -418,7 +462,15 @@
       }
     </style>
   </head>
-  <body>
+  <body class="loading">
+    <div id="preloader">
+      <img
+        src="Picsart_25-12-30_21-09-30-937.png"
+        alt="Vix Draws World"
+        class="loader-logo"
+      />
+    </div>
+
     <div class="overlay" onclick="toggleMenu()"></div>
     <div class="sidebar" id="mobileSidebar">
       <div
@@ -467,24 +519,35 @@
             Hello, I'm Vicky.
           </h3>
           <p>
-            Welcome to Vix DrawsWorld X. I am a professional artist based in
+            Welcome to Vix Draws World x . I am a professional artist based in
             Chennai, dedicated to creating timeless portraits. My work combines
             earthy textures with sharp contrast to bring your memories to life
             on paper.
           </p>
         </div>
-        <img src="IMG_20251213_115140.png" alt="Vicky" class="profile-img" />
+        <img
+          src="IMG_20251213_115140.png"
+          alt="Vicky"
+          class="profile-img"
+          loading="lazy"
+        />
       </div>
     </section>
 
     <section id="gallery" class="section">
       <h2 class="section-title">Portfolio</h2>
       <div class="gallery-grid">
-        <div class="gallery-item"><img src="IMG20250804102717.jpg" /></div>
-        <div class="gallery-item"><img src="IMG20250817172558.jpg" /></div>
-        <div class="gallery-item"><img src="IMG_20251019_090917.png" /></div>
         <div class="gallery-item">
-          <img src="OplusInfoCollection_251213112001058.png" />
+          <img src="IMG20250804102717.jpg" loading="lazy" />
+        </div>
+        <div class="gallery-item">
+          <img src="IMG20250817172558.jpg" loading="lazy" />
+        </div>
+        <div class="gallery-item">
+          <img src="IMG_20251019_090917.png" loading="lazy" />
+        </div>
+        <div class="gallery-item">
+          <img src="OplusInfoCollection_251213112001058.png" loading="lazy" />
         </div>
       </div>
       <a href="https://www.instagram.com/vix_drawsworld_x___" class="insta-link"
@@ -497,11 +560,7 @@
 
       <div class="booking-wrapper">
         <form id="bookingForm" method="POST" enctype="multipart/form-data">
-          <input
-            type="hidden"
-            name="_subject"
-            value="New Portrait Order (Brown Theme)"
-          />
+          <input type="hidden" name="_subject" value="New Portrait Order" />
           <input type="hidden" name="_captcha" value="false" />
 
           <div class="form-group">
@@ -579,7 +638,7 @@
     </section>
 
     <footer class="footer">
-      <h3>Vix DrawsWorld X</h3>
+      <h3>Vix Draws World x</h3>
       <p style="margin-top: 15px">
         <a href="tel:8610493059">8610493059</a> &bull;
         <a href="mailto:vixdrawsworldx@gmail.com">vixdrawsworldx@gmail.com</a>
@@ -604,7 +663,6 @@
           Your booking request has been sent successfully. I will review your
           photo and contact you shortly.
         </p>
-
         <a
           href="https://wa.me/918610493059"
           style="
@@ -636,13 +694,23 @@
     </div>
 
     <script>
-      // Sidebar Logic
+      // 1. PRELOADER LOGIC (Makes site fast & smooth)
+      window.addEventListener("load", function () {
+        const preloader = document.getElementById("preloader");
+        preloader.style.opacity = "0";
+        setTimeout(() => {
+          preloader.style.display = "none";
+          document.body.classList.remove("loading");
+        }, 500);
+      });
+
+      // 2. Sidebar Logic
       function toggleMenu() {
         document.getElementById("mobileSidebar").classList.toggle("active");
         document.querySelector(".overlay").classList.toggle("active");
       }
 
-      // Size Selection
+      // 3. Size Selection
       function selectSize(btn, size) {
         document
           .querySelectorAll(".size-opt")
@@ -651,7 +719,7 @@
         document.getElementById("sizeInput").value = size;
       }
 
-      // File Msg
+      // 4. File Msg
       document
         .getElementById("fileInput")
         .addEventListener("change", function () {
@@ -661,7 +729,7 @@
           }
         });
 
-      // Form Submit
+      // 5. Form Submit
       const form = document.getElementById("bookingForm");
       const modal = document.getElementById("successModal");
       const btn = document.getElementById("submitBtn");
@@ -693,7 +761,7 @@
             document.getElementById("fileMsg").innerText = "";
           })
           .catch((err) => {
-            modal.style.display = "flex"; // Show success even if error (UX backup)
+            modal.style.display = "flex";
             btn.innerText = "Submit Request";
             btn.style.opacity = "1";
           });
